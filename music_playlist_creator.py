@@ -1,3 +1,4 @@
+from unittest import result
 import requests
 import json
 import pandas as pd
@@ -13,25 +14,34 @@ while True:
 
     response = requests.get("https://itunes.apple.com/search?term="+song+"&limit=1")
     jsonResponse=response.json()
-    
+   
     for results in jsonResponse['results']:
+        musician =results['artistName']
+        title =results['trackName']
+        recording =results['trackViewUrl']
+        
         print("Artist Name is")
         print(results['artistName'])
+        musician =results['artistName']
         print("Collection Name is")
         print(results['collectionName'])
         print("Track Name is")
         print(results['trackName'])
+        title =results['trackName']
         print("Genre is")
         print(results['primaryGenreName'])
         print("Here is the album cover")
         print(results['artworkUrl30'])
         print("Here is the link to the song")
         print(results['trackViewUrl'])
-
-    playlist ={
-        "song_name": str((results['trackName'])),
-        "musician": str((results['artistName'])),
-        "recording":str((results['trackViewUrl'])) }    
+        recording =results['trackViewUrl']
+       
+        playlist ={
+        "musician": musician,
+        "title": title,
+        "recording":recording }   
+           
+        df = pd.DataFrame()
+        df = df.append({'musician':musician, 'title':title, 'recording':recording},ignore_index=True)
     
-df = pd.DataFrame(playlist, columns = ['Musician', 'Song Title', 'Link to Song'])
 print(df)
