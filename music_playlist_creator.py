@@ -5,6 +5,8 @@ import pandas as pd
 
 print("Welcome! You can use this application to create a music playlist")  
 
+df = pd.DataFrame()
+
 while True:
     song=input("What song would you like to add to your playlist?")
     
@@ -41,7 +43,6 @@ while True:
         "title": title,
         "recording":recording }   
            
-        df = pd.DataFrame()
         df = df.append({'musician':musician, 'title':title, 'recording':recording},ignore_index=True)
     
 print(df)
